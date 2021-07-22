@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const app = express();
+const Thing = require('./models/Thing');
+
 
 let json = require('./token.json');
 
@@ -11,6 +12,9 @@ mongoose.connect('mongodb+srv://root:' + json + '@cluster0.ywlii.mongodb.net/myF
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
+
+  
+const app = express();
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -22,32 +26,37 @@ app.use((req, res, next) => {
   app.use(bodyParser.json());
 
   app.post('/api/stuff', (req, res, next) => {
-    console.log(req.body);
-    res.status(201).json({
-      message: 'Sauce created!'
+    delete req.body._id;
+    const thing = new Thing({
+      ...req.body
     });
+    thing.save()
+      .then(() => res.status(201).json({ message: 'Sauce saved!'}))
+      .catch(error => res.status(400).json({ error }));
   });
 
-app.use('/api/stuff', (req, res, next) => {
-    const stuff = [
-      {
-        _id: 'oeihfzeoi',
-        title: 'First Sauce',
-        description: 'Sauce information',
-        imageUrl: '',
-        price: 4900,
-        userId: 'qsomihvqios',
-      },
-      {
-        _id: 'oeihfzeomoihi',
-        title: 'Second sauce',
-        description: 'Sauce information 2',
-        imageUrl: '',
-        price: 2900,
-        userId: 'qsomihvqios',
-      },
-    ];
-    res.status(200).json(stuff);
+  app.put('/api/stuff/:id', (req, res, next) => {
+    Thing.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
+      .then(() => res.status(200).json({ message: 'Sauce edited!'}))
+      .catch(error => res.status(400).json({ error }));
+  });
+
+  app.delete('/api/stuff/:id', (req, res, next) => {
+    Thing.deleteOne({ _id: req.params.id })
+      .then(() => res.status(200).json({ message: 'Sauce deleted!'}))
+      .catch(error => res.status(400).json({ error }));
+  });
+
+  app.get('/api/stuff/:id', (req, res, next) => {
+    Thing.findOne({ _id: req.params.id })
+      .then(thing => res.status(200).json(thing))
+      .catch(error => res.status(404).json({ error }));
+  });
+
+app.get('/api/stuff', (req, res, next) => {
+  Thing.find()
+  .then(things => res.status(200).json(things))
+  .catch(error => res.status(400).json({ error }));
   });
 
   module.exports = app;
