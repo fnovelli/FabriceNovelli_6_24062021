@@ -24,6 +24,6 @@ Sur Windows, ces installations nécessitent d'utiliser PowerShell en tant qu'adm
 
 Depuis le dossier front-end, taper ng serve pour avoir accès au serveur de développement. Rendez-vous sur http://localhost:4200/. L'application va se recharger automatiquement si vous modifiez un fichier source.
 
-##Démarrer le back-end
+## Démarrer le back-end
 Depuis le dossier back-end, taper nodemon server pour démarrer le backend. Si le fichier token.json est bien détécté, la connexion à la BDD  Mongoose fonctionnera.
 
