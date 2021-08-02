@@ -6,19 +6,13 @@ Pour faire fonctionner le Projet, vous devez installer :
 
 - [node-sass](https://www.npmjs.com/package/node-sass) : attention à prendre la version correspondante à NodeJS. Pour Node 14.0 par exemple, installer node-sass en version 4.14+.
 - [NodeJS](https://nodejs.org/en/download/) en version 12.14 ou 14.0 
-- Nodemon (npm install -g nodemon)
-- Express (npm install --save express)
-- Cors (npm install cors)
-- Mongoose (npm install --save mongoose)
-- Mongoose unique validator (npm install --save mongoose-unique-validator)
-- Bcrypt (npm install --save bcrypt)
-- Jsonwebtoken (npm install --save jsonwebtoken)
-- Multer (npm install --save multer)
 
-Enfin il vous faudra également le fichier token.json qui n'est pas fournit ici pour des raisons de sécurité.
+Ensuite, depuis un terminal de commande, rendez-vous dans le dossier FrontEnd du projet et taper: "npm install".
+Cela installera tout les packages necessaire pour que le projet fonctionne. Répéter la même opération dans le dossier BackEnd.
+Sur Windows, ces installations peuvent nécessiter d'utiliser PowerShell en tant qu'administrateur.
 
+Enfin, il vous faudra également le fichier token.json qui n'est pas fournit ici pour des raisons de sécurité. Il faudra ensuite le placer dans le dossier BackEnd.
 
-Sur Windows, ces installations nécessitent d'utiliser PowerShell en tant qu'administrateur.
 
 ## Démarrer le front-end
 
