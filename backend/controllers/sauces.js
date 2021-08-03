@@ -1,5 +1,5 @@
 const Sauce = require('../models/Sauces');
-const fs = require('fs');
+const fs = require('fs'); //alow to edit or remove files
 
 exports.createSauce = (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce);
@@ -65,4 +65,16 @@ exports.getAllSauces = (req, res, next) => {
       });
     }
   );
+};
+
+function likeSauce() {
+
+}
+
+function dislikeSauce() {
+
+}
+
+exports.likesDislikes = (req, res, next) => {
+ 
 };
