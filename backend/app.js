@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
 var cors = require('cors');
@@ -18,8 +17,11 @@ mongoose.connect('mongodb+srv://root:' + json + '@cluster0.ywlii.mongodb.net/myF
   .catch(() => console.log('Connexion à MongoDB échouée !')
   );
 
-//allow app to use API
-  app.use(bodyParser.json());
+  //body-parser is outdated, we use this syntax instead, the idea is still the same, analyse and treat body request.
+  app.use(express.urlencoded({extended: true})); 
+  app.use(express.json());
+
+  //fix security when doing http request
   app.use(cors())
 
   app.use('/images', express.static(path.join(__dirname, 'images')));

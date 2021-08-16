@@ -9,7 +9,7 @@ exports.createSauce = (req, res, next) => {
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
   });
   sauce.save()
-    .then(() => res.status(201).json({ message: 'Sauce saved!'}))
+    .then(() => res.status(201).json({ message: 'Sauce created!'}))
     .catch(error => res.status(400).json({ error }));
 };
 
@@ -67,14 +67,30 @@ exports.getAllSauces = (req, res, next) => {
   );
 };
 
-function likeSauce() {
+function likeSauce(req, res) {
 
+    Sauce.updateOne({_id: req.params.id}, {$inc:{likes:1}, $push:{usersLiked:req.body.userId },_id:req.params.id } )
+    .then(sauces=> res.status(200).json(sauces))
+    .catch(error => res.status(400).json({error}));
+  
+  
 }
 
-function dislikeSauce() {
+function dislikeSauce(req, res) {
 
+    Sauce.updateOne({_id: req.params.id}, {$inc:{dislikes:1}, $push:{usersDisliked:req.body.userId },_id:req.params.id } )
+    .then(sauces=> res.status(200).json(sauces))
+    .catch(error => res.status(400).json({error}));
+  
 }
 
 exports.likesDislikes = (req, res, next) => {
- 
-};
+
+  if (req.body.like == 1) {
+    likeSauce(req, res);
+  }
+  
+  if (req.body.like == -1) {
+    dislikeSauce(req, res);
+  }
+}
