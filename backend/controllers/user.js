@@ -1,8 +1,26 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+var passwordValidator = require('password-validator');
+
+//limit inject attack and force user to have strong password.
+var schema = new passwordValidator();
+
+schema
+.is().min(8)                                    
+.is().max(30)                                 
+.has().uppercase(1)                              
+.has().lowercase()                              
+.has().digits(1)
+.has().symbols(1)                                 
+.has().not().spaces();
 
 exports.signup = (req, res, next) => {
+
+  if (!schema.validate(req.body.password)) {
+    throw new error("Error! Password must be stronger. It must have at least one uppercase, one digit, one special character");
+  }
+
   bcrypt.hash(req.body.password, 10)
   .then(hash =>{
       const user = new User({
@@ -14,6 +32,7 @@ exports.signup = (req, res, next) => {
       .catch(error => res.status(400).json({error}));
   })
   .catch(error => res.status(500).json({error}));
+
 
 };
 

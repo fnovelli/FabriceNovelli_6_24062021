@@ -116,7 +116,6 @@ function removeLikeDislike(req, res) {
 exports.likesDislikes = (req, res, next) => {
 
   if (req.body.like >= 1) {
-    removeLikeDislike(req, res);
     likeSauce(req, res);
   } 
   
