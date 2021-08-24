@@ -1,5 +1,5 @@
 const Sauce = require('../models/Sauces');
-const fs = require('fs'); //alow to edit or remove files
+const fs = require('fs'); //allow to edit or remove files
 
 exports.createSauce = (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce);
