@@ -10,7 +10,20 @@ const rateLimit = require("express-rate-limit");
   
 const app = express();
 
+var morgan = require('morgan')
+var fs = require('fs')
+var morgan = require('morgan')
 let json = require('./token.json');
+
+// create a write stream (in append mode)
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+ 
+// setup the logger
+app.use(morgan('combined', { stream: accessLogStream }))
+ 
+app.get('/', function (req, res) {
+  res.send('hello, world!')
+})
 
 mongoose.connect('mongodb+srv://root:' + json + '@cluster0.ywlii.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
   { useNewUrlParser: true,
@@ -21,7 +34,7 @@ mongoose.connect('mongodb+srv://root:' + json + '@cluster0.ywlii.mongodb.net/myF
 
   const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100 // limit each IP to 100 requests per windowMs
+    max: 1000 // limit each IP to 1000 requests per windowMs
   });
 
   //body-parser is outdated, we use this syntax instead, the idea is still the same, analyse and treat body request.
@@ -32,6 +45,8 @@ mongoose.connect('mongodb+srv://root:' + json + '@cluster0.ywlii.mongodb.net/myF
   app.use(cors())
   app.use(mongoSanitize());
   app.use(limiter);
+  app.use(morgan('combined'))
+
   app.use('/images', express.static(path.join(__dirname, 'images')));
   app.use('/api/sauces', saucesRoutes);
   app.use('/api/auth', userRoutes);
