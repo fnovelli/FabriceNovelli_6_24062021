@@ -1,4 +1,4 @@
 node_modules
-token.json
+.env
 backend/images
 access.log

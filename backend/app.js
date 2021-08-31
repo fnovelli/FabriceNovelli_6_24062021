@@ -1,4 +1,7 @@
 const express = require('express');
+
+require('dotenv').config()
+
 const mongoose = require('mongoose');
 const path = require('path');
 var cors = require('cors');
@@ -13,7 +16,7 @@ const app = express();
 var morgan = require('morgan')
 var fs = require('fs')
 var morgan = require('morgan')
-let json = require('./token.json');
+
 
 // create a write stream (in append mode)
 var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
@@ -25,7 +28,10 @@ app.get('/', function (req, res) {
   res.send('hello, world!')
 })
 
-mongoose.connect('mongodb+srv://root:' + json + '@cluster0.ywlii.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+let user = process.env.DB_USER;
+let pswd = process.env.DB_PASS;
+
+mongoose.connect('mongodb+srv://' + user + ':' + pswd + '@cluster0.ywlii.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
