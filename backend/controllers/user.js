@@ -5,6 +5,7 @@ var passwordValidator = require('password-validator');
 
 //limit inject attack and force user to have strong password.
 var schema = new passwordValidator();
+let tkn = process.env.DB_TOKEN;
 
 schema
 .is().min(8)                                    
@@ -50,7 +51,7 @@ exports.login = (req, res, next) => {
               userId: user._id,
               token: jwt.sign(
                 { userId: user._id },
-                'RANDOM_TOKEN_SECRET',
+                tkn,
                 { expiresIn: '24h' }
               )
             });
