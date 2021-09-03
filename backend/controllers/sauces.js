@@ -79,7 +79,7 @@ function likeSauce(req, res) {
 
 function dislikeSauce(req, res) {
 
-  Sauce.updateOne({_id: req.params.id}, {
+    Sauce.updateOne({_id: req.params.id}, {
     $inc: { dislikes: +1},
     $push: {usersDisliked: req.body.userId}
 })

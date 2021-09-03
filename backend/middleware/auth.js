@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
-let tkn = process.env.DB_TOKEN;
+let secret = process.env.JWT_SECRET;
 
 module.exports = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, tkn);
+    const decodedToken = jwt.verify(token, secret);
     const userId = decodedToken.userId;
     
     if (req.body.userId && req.body.userId !== userId) {

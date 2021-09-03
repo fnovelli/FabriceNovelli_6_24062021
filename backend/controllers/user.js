@@ -5,7 +5,7 @@ var passwordValidator = require('password-validator');
 
 //limit inject attack and force user to have strong password.
 var schema = new passwordValidator();
-let tkn = process.env.DB_TOKEN;
+let secret = process.env.JWT_SECRET;
 
 schema
 .is().min(8)                                    
@@ -30,7 +30,7 @@ exports.signup = (req, res, next) => {
       });
       user.save()
       .then(() => res.status(201).json({message: 'User created!'}))
-      .catch(error => res.status(400).json({error}));
+      .catch(error => res.status(400).json({error: 'Couldn\'t create user'}));
   })
   .catch(error => res.status(500).json({error}));
 };
@@ -51,7 +51,7 @@ exports.login = (req, res, next) => {
               userId: user._id,
               token: jwt.sign(
                 { userId: user._id },
-                tkn,
+                secret,
                 { expiresIn: '24h' }
               )
             });
