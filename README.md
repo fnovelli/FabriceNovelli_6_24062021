@@ -16,8 +16,8 @@ Enfin, il vous faudra également le fichier ".env" qui n'est pas fournit ici pou
 
 ## Démarrer le front-end
 
-Depuis le dossier front-end, taper ng serve pour avoir accès au serveur de développement. Rendez-vous sur http://localhost:4200/. L'application va se recharger automatiquement si vous modifiez un fichier source.
+Depuis le dossier front-end, taper: "ng serve" pour avoir accès au serveur de développement. Rendez-vous sur http://localhost:4200/. L'application va se recharger automatiquement si vous modifiez un fichier source.
 
 ## Démarrer le back-end
-Depuis le dossier back-end, taper nodemon server pour démarrer le backend. Si le fichier ".env" est bien détécté, la connexion à la BDD  Mongoose fonctionnera.
+Depuis le dossier back-end, taper: "nodemon server" pour démarrer le backend. Si le fichier ".env" est bien détécté, la connexion à la BDD Mongoose fonctionnera.
 
