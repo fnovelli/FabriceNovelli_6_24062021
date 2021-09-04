@@ -11,7 +11,7 @@ Ensuite, depuis un terminal de commande, rendez-vous dans le dossier FrontEnd du
 Cela installera tout les packages necessaire pour que le projet fonctionne. Répéter la même opération dans le dossier BackEnd.
 Sur Windows, ces installations peuvent nécessiter d'utiliser PowerShell en tant qu'administrateur.
 
-Enfin, il vous faudra également le fichier token.json qui n'est pas fournit ici pour des raisons de sécurité. Il faudra ensuite le placer dans le dossier BackEnd.
+Enfin, il vous faudra également le fichier ".env" qui n'est pas fournit ici pour des raisons de sécurité. Il faudra ensuite le placer dans le dossier BackEnd.
 
 
 ## Démarrer le front-end
@@ -19,5 +19,5 @@ Enfin, il vous faudra également le fichier token.json qui n'est pas fournit ici
 Depuis le dossier front-end, taper ng serve pour avoir accès au serveur de développement. Rendez-vous sur http://localhost:4200/. L'application va se recharger automatiquement si vous modifiez un fichier source.
 
 ## Démarrer le back-end
-Depuis le dossier back-end, taper nodemon server pour démarrer le backend. Si le fichier token.json est bien détécté, la connexion à la BDD  Mongoose fonctionnera.
+Depuis le dossier back-end, taper nodemon server pour démarrer le backend. Si le fichier ".env" est bien détécté, la connexion à la BDD  Mongoose fonctionnera.
 
